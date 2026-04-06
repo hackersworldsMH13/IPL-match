@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPL Live Scraper</title>
+</head>
+<body>
+    <h1>IPL Live Match Scraper</h1>
+    <div id="matches">
+        <!-- Live matches will be displayed here -->
+    </div>
+    <script>
+        async function fetchLiveMatches() {
+            const response = await fetch('API_ENDPOINT_HERE'); // Replace with actual API endpoint
+            const data = await response.json();
+            const matchesDiv = document.getElementById('matches');
+            data.matches.forEach(match => {
+                const matchElement = document.createElement('div');
+                matchElement.innerHTML = `<h2>${match.team1} vs ${match.team2}</h2><p>Score: ${match.score}</p>`;
+                matchesDiv.appendChild(matchElement);
+            });
+        }
+        fetchLiveMatches();
+    </script>
+</body>
+</html>
