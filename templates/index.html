@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPL Live Scores</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        body { background-color: #f8f9fa; }
+        .match-card { margin: 20px; padding: 20px; border: 1px solid #ddd; border-radius: 5px; background: white; }
+        .modal-header { background-color: #007bff; color: white; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center my-4">IPL Live Scores</h1>
+        <div id="matches-container"></div>
+    </div>
+
+    <div class="modal fade" id="matchModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Match Details</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p id="match-details"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+        const fetchMatches = async () => {
+            // Fetch IPL match data (mocked as an example)
+            const matches = [
+                { id: 1, teamA: 'Team A', teamB: 'Team B', scoreA: '150', scoreB: '140', commentary: 'Exciting game!', details: 'Match played at Venue 1' },
+                { id: 2, teamA: 'Team C', teamB: 'Team D', scoreA: '180', scoreB: '170', commentary: 'Tight finish!', details: 'Match played at Venue 2' }
+            ];
+
+            const container = document.getElementById('matches-container');
+            container.innerHTML = '';
+
+            matches.forEach(match => {
+                const card = `<div class='match-card'>
+                                <h5>${match.teamA} vs ${match.teamB}</h5>
+                                <p>Score: ${match.scoreA} - ${match.scoreB}</p>
+                                <p>Commentary: ${match.commentary}</p>
+                                <button class='btn btn-primary' data-toggle='modal' data-target='#matchModal' onclick='showDetails(${match.id})'>View Details</button>
+                             </div>`;
+                container.insertAdjacentHTML('beforeend', card);
+            });
+        };
+
+        const showDetails = (matchId) => {
+            // Details data (mocked)
+            const details = matchId === 1 ? 'Match played at Venue 1.' : 'Match played at Venue 2.';
+            document.getElementById('match-details').innerText = details;
+        };
+
+        setInterval(fetchMatches, 30000); // Refresh every 30 seconds
+
+        fetchMatches(); // Initial fetch
+    </script>
+</body>
+</html>
